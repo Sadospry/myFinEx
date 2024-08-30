@@ -1,0 +1,45 @@
+#!/bin/bash
+
+TRIAL_DAYS=0.4
+
+VALID_LICENSE_KEY="Test"
+
+get_installation_date() {
+    echo "$TRIAL_INSTALLATION_DATE"
+}
+
+set_installation_date() {
+    export TRIAL_INSTALLATION_DATE=$(date +%s)
+}
+
+check_trial_expiry() {
+    INSTALLATION_DATE=$(get_installation_date)
+    if [[ -z "$INSTALLATION_DATE" ]]; then
+        echo "Trial Activated."
+        set_installation_date
+    else
+        CURRENT_DATE=$(date +%s)
+        ELAPSED_DAYS=$(( (CURRENT_DATE - INSTALLATION_DATE) / 86400 ))  # 86400 seconds in a day
+
+        if [[ $ELAPSED_DAYS -ge $TRIAL_DAYS ]]; then
+            echo "Trial Period Expired. Please Enter License Key:"
+            read -r LICENSE_KEY
+
+            if [[ "$LICENSE_KEY" != "$VALID_LICENSE_KEY" ]]; then
+                echo "Invalid License Key. Exiting."
+                exit 1
+            else
+                echo "License Key Accepted."
+            fi
+        else
+            echo "Trial Period Active. Days Left: $((TRIAL_DAYS - ELAPSED_DAYS))"
+        fi
+    fi
+}
+
+perform_main_action() {
+    echo "...."
+}
+
+check_trial_expiry
+perform_main_action
