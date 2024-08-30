@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TRIAL_DAYS=0.4
+TRIAL_DAYS=4
 
 VALID_LICENSE_KEY="Test"
 
