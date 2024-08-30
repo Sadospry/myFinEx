@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TRIAL_DAYS=4
+TRIAL_DAYS=0
 
 VALID_LICENSE_KEY="Test"
 
@@ -9,14 +9,13 @@ get_installation_date() {
 }
 
 set_installation_date() {
-    # Store the current date in the environment variable
     export TRIAL_INSTALLATION_DATE=$(date +%s)
 }
 
 check_trial_expiry() {
     INSTALLATION_DATE=$(get_installation_date)
     if [[ -z "$INSTALLATION_DATE" ]]; then
-        echo "Trial not started. Starting trial now..."
+        echo "Trial Activated."
         set_installation_date
     else
         CURRENT_DATE=$(date +%s)
